@@ -23,4 +23,3 @@ private:
 	int _x;
 	int _y;
 };
-

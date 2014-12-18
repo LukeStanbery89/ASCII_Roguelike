@@ -1,12 +1,12 @@
 #include "Player.h"
 
-// Constructor, just initializes position to zero
+// Constructor, just initialized position to zero
 Player::Player() {
 	_x = 0;
 	_y = 0;
 }
 
-// Initializes the player with properties
+// Initialized the player with properties
 void Player::init(int level, int health, int attack, int defense, int experience) {
 	_level = level;
 	_health = health;
@@ -23,6 +23,6 @@ void Player::setPosition(int x, int y) {
 
 // Gets the position of the player using reference variables
 void Player::getPosition(int &x, int &y) {
-	x = _y;
-	y = _x;
+	x = _x;
+	y = _y;
 }

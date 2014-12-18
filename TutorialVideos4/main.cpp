@@ -1,6 +1,6 @@
 #include <iostream>
-#include <string>
 #include <cstdlib>
+#include <string>
 #include <conio.h>
 
 #include "GameSystem.h"
