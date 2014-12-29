@@ -6,20 +6,8 @@ public:
 	void init(int level, int health, int attack, int defense, int experience);
 
 	// Setters
-	void setPosition(int x, int y);
+	void setPosition(int x, int y, int z);
 
 	// Getters
-	void getPosition(int &x, int &y);
-
-private:
-	// Properties
-	int _level;
-	int _health;
-	int _attack;
-	int _defense;
-	int _experience;
-
-	// Position
-	int _x;
-	int _y;
+	void getPosition(int &x, int &y, int &z);
 };
