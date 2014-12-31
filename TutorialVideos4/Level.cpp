@@ -34,6 +34,26 @@ void Level::load(string fileName, Player &player) {
 				case '@': //Player
 					player.setPosition(j, i);
 					break;
+				case 'S': //Snake
+					_enemies.push_back(Enemy("Snake", tile, 1, 3, 1, 10, 10));
+					_enemies.back().setPosition(j, i);
+					break;
+				case 'G': //Goblin
+					_enemies.push_back(Enemy("Goblin", tile, 2, 10, 5, 35, 50));
+					_enemies.back().setPosition(j, i);
+					break;
+				case 'O': //Ogre
+					_enemies.push_back(Enemy("Goblin", tile, 4, 20, 20, 200, 500));
+					_enemies.back().setPosition(j, i);
+					break;
+				case 'D': //Dragon
+					_enemies.push_back(Enemy("Dragon", tile, 100, 2000, 2000, 2000, 50000000));
+					_enemies.back().setPosition(j, i);
+					break;
+				case 'B': //Bandit
+					_enemies.push_back(Enemy("Bandit", tile, 3, 15, 10, 100, 250));
+					_enemies.back().setPosition(j, i);
+					break;
 			}
 		}
 	}
@@ -99,14 +119,63 @@ void Level::processPlayerMove(Player &player, int targetX, int targetY) {
 	char moveTile = getTile(targetX, targetY);
 	
 	switch(moveTile) {
-		case '#':
-			printf("You ran into a wall!\n");
-			system("PAUSE");
-			break;
 		case '.':
 			player.setPosition(targetX, targetY);
 			setTile(playerX, playerY, '.');
 			setTile(targetX, targetY, '@');
 			break;
+		case '#':
+			break;
+		// Place monsters here:
+		default:
+			battleMonster(player, targetX, targetY);
+			break;
 	}
+}
+
+void Level::battleMonster(Player &player, int targetX, int targetY) {
+
+	int enemyX;
+	int enemyY;
+	int attackRoll;
+	int attackResult;
+
+	for(int i = 0; i < _enemies.size(); i++) {
+
+		_enemies[i].getPosition(enemyX, enemyY);
+		
+		if(targetX == enemyX && targetY == enemyY) {
+
+			// Battle!
+			attackRoll = player.attack();
+			printf("Player attacked monster with a roll of %d\n", attackRoll);
+			attackResult = _enemies[i].takeDamage(attackRoll);
+
+			if(attackResult != 0) {
+				setTile(targetX, targetY, '.');
+				print();
+				printf("Monster died!\n");
+				system("PAUSE");
+				player.addExperience(attackResult);
+
+				return;
+			}
+
+			// Monster's turn
+			attackRoll = _enemies[i].attack();
+			attackResult = player.takeDamage(attackRoll);
+
+			if(attackResult != 0) {
+				setTile(targetX, targetY, 'x');
+				print();
+				printf("You died!\n");
+				system("PAUSE");
+
+				exit(0);
+			}
+
+			return;
+		}
+	}
+
 }

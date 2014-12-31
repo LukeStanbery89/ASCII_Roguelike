@@ -5,6 +5,7 @@
 #include <cstdio>
 
 #include "Player.h"
+#include "Enemy.h"
 
 using namespace std;
 
@@ -25,6 +26,8 @@ public:
 
 private:
 	vector <string> _levelData;
+	vector <Enemy> _enemies;
 
 	void processPlayerMove(Player &player, int targetX, int targetY);
+	void battleMonster(Player &player, int targetX, int targetY);
 };
