@@ -22,6 +22,10 @@ void Enemy::getPosition(int &x, int &y) {
 	y = _y;
 }
 
+string Enemy::getName() {
+	return _name;
+}
+
 int Enemy::attack() {
 	static default_random_engine randomEngine(time(NULL));
 	uniform_int_distribution<int> attackRoll(0, _attack);

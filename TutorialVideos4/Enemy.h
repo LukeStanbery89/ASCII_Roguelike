@@ -14,6 +14,7 @@ public:
 
 	// Getters
 	void getPosition(int &x, int &y);
+	string getName();
 
 	int attack();
 	int takeDamage(int attack);
